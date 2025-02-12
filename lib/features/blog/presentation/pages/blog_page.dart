@@ -29,7 +29,7 @@ class _BlogPageState extends State<BlogPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Blog App'),
+        title: const Text('Affinity'),
         actions: [
           IconButton(
             onPressed: () {
