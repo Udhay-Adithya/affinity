@@ -6,9 +6,11 @@ Future<void> initDependencies() async {
   _initAuth();
   _initBlog();
 
+  await dotenv.load(fileName: ".env");
+
   final supabase = await Supabase.initialize(
-    url: AppSecrets.supabaseUrl,
-    anonKey: AppSecrets.supabaseAnonKey,
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env['SUPABASE_ANON_KEY']!,
   );
 
   Hive.defaultDirectory = (await getApplicationDocumentsDirectory()).path;

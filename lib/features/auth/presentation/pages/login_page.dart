@@ -1,11 +1,11 @@
-import 'package:blog_app/core/common/widgets/loader.dart';
-import 'package:blog_app/core/theme/app_pallete.dart';
-import 'package:blog_app/core/utils/show_snackbar.dart';
-import 'package:blog_app/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:blog_app/features/auth/presentation/pages/signup_page.dart';
-import 'package:blog_app/features/auth/presentation/widgets/auth_field.dart';
-import 'package:blog_app/features/auth/presentation/widgets/auth_gradient_button.dart';
-import 'package:blog_app/features/blog/presentation/pages/blog_page.dart';
+import 'package:affinity/core/common/widgets/loader.dart';
+import 'package:affinity/core/theme/app_pallete.dart';
+import 'package:affinity/core/utils/show_snackbar.dart';
+import 'package:affinity/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:affinity/features/auth/presentation/pages/signup_page.dart';
+import 'package:affinity/features/auth/presentation/widgets/auth_field.dart';
+import 'package:affinity/features/auth/presentation/widgets/auth_gradient_button.dart';
+import 'package:affinity/features/blog/presentation/pages/blog_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

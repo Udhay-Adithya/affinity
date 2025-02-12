@@ -1,17 +1,16 @@
 import 'dart:io';
 
-import 'package:blog_app/core/common/cubits/app_user/app_user_cubit.dart';
-import 'package:blog_app/core/common/widgets/loader.dart';
-import 'package:blog_app/core/constants/constants.dart';
-import 'package:blog_app/core/theme/app_pallete.dart';
-import 'package:blog_app/core/utils/pick_image.dart';
-import 'package:blog_app/core/utils/show_snackbar.dart';
-import 'package:blog_app/features/blog/presentation/bloc/blog_bloc.dart';
-import 'package:blog_app/features/blog/presentation/pages/blog_page.dart';
-import 'package:blog_app/features/blog/presentation/widgets/blog_editor.dart';
+import 'package:affinity/core/common/cubits/app_user/app_user_cubit.dart';
+import 'package:affinity/core/common/widgets/loader.dart';
+import 'package:affinity/core/constants/constants.dart';
+import 'package:affinity/core/theme/app_pallete.dart';
+import 'package:affinity/core/utils/pick_image.dart';
+import 'package:affinity/core/utils/show_snackbar.dart';
+import 'package:affinity/features/blog/presentation/bloc/blog_bloc.dart';
+import 'package:affinity/features/blog/presentation/pages/blog_page.dart';
+import 'package:affinity/features/blog/presentation/widgets/blog_editor.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddNewBlogPage extends StatefulWidget {

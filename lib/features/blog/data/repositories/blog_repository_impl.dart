@@ -1,13 +1,13 @@
 import 'dart:io';
-import 'package:blog_app/core/constants/constants.dart';
-import 'package:blog_app/core/error/exceptions.dart';
-import 'package:blog_app/core/error/failures.dart';
-import 'package:blog_app/core/network/connection_checker.dart';
-import 'package:blog_app/features/blog/data/datasources/blog_local_data_source.dart';
-import 'package:blog_app/features/blog/data/datasources/blog_remote_data_source.dart';
-import 'package:blog_app/features/blog/data/models/blog_model.dart';
-import 'package:blog_app/features/blog/domain/entities/blog.dart';
-import 'package:blog_app/features/blog/domain/repositories/blog_repository.dart';
+import 'package:affinity/core/constants/constants.dart';
+import 'package:affinity/core/error/exceptions.dart';
+import 'package:affinity/core/error/failures.dart';
+import 'package:affinity/core/network/connection_checker.dart';
+import 'package:affinity/features/blog/data/datasources/blog_local_data_source.dart';
+import 'package:affinity/features/blog/data/datasources/blog_remote_data_source.dart';
+import 'package:affinity/features/blog/data/models/blog_model.dart';
+import 'package:affinity/features/blog/domain/entities/blog.dart';
+import 'package:affinity/features/blog/domain/repositories/blog_repository.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:uuid/uuid.dart';
 
