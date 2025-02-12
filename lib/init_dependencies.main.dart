@@ -6,7 +6,7 @@ Future<void> initDependencies() async {
   _initAuth();
   _initBlog();
 
-  await dotenv.load(fileName: ".env");
+  await dotenv.load(fileName: "assets/.env");
 
   final supabase = await Supabase.initialize(
     url: dotenv.env['SUPABASE_URL']!,
