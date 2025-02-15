@@ -126,7 +126,7 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
                               radius: const Radius.circular(10),
                               borderType: BorderType.RRect,
                               strokeCap: StrokeCap.round,
-                              child: Container(
+                              child: SizedBox(
                                 height: 150,
                                 width: double.infinity,
                                 child: const Column(
@@ -168,7 +168,7 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
                                   child: Chip(
                                     label: Text(e),
                                     color: selectedTopics.contains(e)
-                                        ? const MaterialStatePropertyAll(
+                                        ? const WidgetStatePropertyAll(
                                             AppPallete.gradient1,
                                           )
                                         : null,
