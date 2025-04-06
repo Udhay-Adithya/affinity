@@ -51,11 +51,11 @@ class BlogViewerPage extends StatelessWidget {
                     fontSize: 16,
                   ),
                 ),
-                const SizedBox(height: 20),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.network(blog.imageUrl),
-                ),
+                // const SizedBox(height: 20),
+                // ClipRRect(
+                //   borderRadius: BorderRadius.circular(10),
+                //   child: Image.network(blog.imageUrl),
+                // ),
                 const SizedBox(height: 20),
                 Text(
                   blog.content,
