@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:affinity/core/common/widgets/loader.dart';
 import 'package:affinity/core/theme/app_pallete.dart';
 import 'package:affinity/core/utils/show_snackbar.dart';
@@ -25,6 +27,10 @@ class _BlogPageState extends State<BlogPage> {
     context.read<BlogBloc>().add(BlogFetchAllBlogs());
   }
 
+  Future<void> _onRefresh() async {
+    context.read<BlogBloc>().add(BlogFetchAllBlogs());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,6 +50,7 @@ class _BlogPageState extends State<BlogPage> {
       body: BlocConsumer<BlogBloc, BlogState>(
         listener: (context, state) {
           if (state is BlogFailure) {
+            log(state.error);
             showSnackBar(context, state.error);
           }
         },
@@ -52,17 +59,20 @@ class _BlogPageState extends State<BlogPage> {
             return const Loader();
           }
           if (state is BlogsDisplaySuccess) {
-            return ListView.builder(
-              itemCount: state.blogs.length,
-              itemBuilder: (context, index) {
-                final blog = state.blogs[index];
-                return BlogCard(
-                  blog: blog,
-                  color: index % 2 == 0
-                      ? AppPallete.gradient1
-                      : AppPallete.gradient2,
-                );
-              },
+            return RefreshIndicator.adaptive(
+              onRefresh: _onRefresh,
+              child: ListView.builder(
+                itemCount: state.blogs.length,
+                itemBuilder: (context, index) {
+                  final blog = state.blogs[index];
+                  return BlogCard(
+                    blog: blog,
+                    color: index % 2 == 0
+                        ? AppPallete.gradient1
+                        : AppPallete.gradient2,
+                  );
+                },
+              ),
             );
           }
           return const SizedBox();
