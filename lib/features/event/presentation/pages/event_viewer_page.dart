@@ -21,15 +21,26 @@ class BlogViewerPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          TextButton(
-            onPressed: () {},
-            child: const Text(
-              "Join",
-              style: TextStyle(
-                fontSize: 16,
+          if (event.members.contains(event.posterId))
+            TextButton(
+              onPressed: () {},
+              child: const Text(
+                "Edit",
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            )
+          else
+            TextButton(
+              onPressed: () {},
+              child: const Text(
+                "Join",
+                style: TextStyle(
+                  fontSize: 16,
+                ),
               ),
             ),
-          ),
         ],
       ),
       body: Scrollbar(
