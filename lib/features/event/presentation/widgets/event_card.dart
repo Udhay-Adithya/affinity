@@ -1,4 +1,4 @@
-import 'package:affinity/core/utils/calculate_reading_time.dart';
+import 'package:affinity/core/utils/calculate_post_time.dart';
 import 'package:affinity/features/event/domain/entities/event.dart';
 import 'package:affinity/features/event/presentation/pages/event_viewer_page.dart';
 import 'package:flutter/material.dart';
@@ -55,13 +55,12 @@ class EventCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('${calculateReadingTime(blog.content)} min'),
+                Text(getTimeAgo(blog.updatedAt.toString())),
                 Text("${blog.members.length}/${blog.maxMembers}")
               ],
             ),

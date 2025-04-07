@@ -1,5 +1,5 @@
 import 'package:affinity/core/theme/app_pallete.dart';
-import 'package:affinity/core/utils/calculate_reading_time.dart';
+import 'package:affinity/core/utils/calculate_post_time.dart';
 import 'package:affinity/core/utils/format_date.dart';
 import 'package:affinity/features/event/domain/entities/event.dart';
 import 'package:flutter/material.dart';
@@ -22,9 +22,7 @@ class BlogViewerPage extends StatelessWidget {
       appBar: AppBar(
         actions: [
           TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
+            onPressed: () {},
             child: const Text(
               "Join",
               style: TextStyle(
@@ -58,7 +56,7 @@ class BlogViewerPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  '${formatDateBydMMMYYYY(event.updatedAt)} . ${calculateReadingTime(event.content)} min',
+                  '${formatDateBydMMMYYYY(event.updatedAt)} . ${getTimeAgo(event.updatedAt.toString())} min',
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     color: AppPallete.greyColor,
