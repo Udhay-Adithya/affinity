@@ -55,9 +55,16 @@ class EventCard extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+
               ],
             ),
-            Text('${calculateReadingTime(blog.content)} min'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('${calculateReadingTime(blog.content)} min'),
+                Text("${blog.members.length}/${blog.maxMembers}")
+              ],
+            ),
           ],
         ),
       ),
