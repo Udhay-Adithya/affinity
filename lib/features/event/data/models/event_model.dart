@@ -16,7 +16,7 @@ class EventModel extends Event {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'id': id,
+      'post_id': id,
       'poster_id': posterId,
       'title': title,
       'content': content,
@@ -30,7 +30,7 @@ class EventModel extends Event {
 
   factory EventModel.fromJson(Map<String, dynamic> map) {
     return EventModel(
-      id: map['id'] as String,
+      id: map['post_id'] as String,
       posterId: map['poster_id'] as String,
       title: map['title'] as String,
       content: map['content'] as String,
