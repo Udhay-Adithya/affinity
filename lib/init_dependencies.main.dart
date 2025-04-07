@@ -79,19 +79,19 @@ void _initAuth() {
 void _initBlog() {
   // Datasource
   serviceLocator
-    ..registerFactory<BlogRemoteDataSource>(
-      () => BlogRemoteDataSourceImpl(
+    ..registerFactory<EventRemoteDataSource>(
+      () => EventRemoteDataSourceImpl(
         serviceLocator(),
       ),
     )
-    ..registerFactory<BlogLocalDataSource>(
-      () => BlogLocalDataSourceImpl(
+    ..registerFactory<EventLocalDataSource>(
+      () => EventLocalDataSourceImpl(
         serviceLocator(),
       ),
     )
     // Repository
-    ..registerFactory<BlogRepository>(
-      () => BlogRepositoryImpl(
+    ..registerFactory<EventRepository>(
+      () => EventRepositoryImpl(
         serviceLocator(),
         serviceLocator(),
         serviceLocator(),
@@ -99,20 +99,20 @@ void _initBlog() {
     )
     // Usecases
     ..registerFactory(
-      () => UploadBlog(
+      () => UploadEvent(
         serviceLocator(),
       ),
     )
     ..registerFactory(
-      () => GetAllBlogs(
+      () => GetAllEvents(
         serviceLocator(),
       ),
     )
     // Bloc
     ..registerLazySingleton(
-      () => BlogBloc(
-        uploadBlog: serviceLocator(),
-        getAllBlogs: serviceLocator(),
+      () => EventBloc(
+        uploadEvent: serviceLocator(),
+        getAllEvents: serviceLocator(),
       ),
     );
 }

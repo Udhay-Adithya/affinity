@@ -3,32 +3,32 @@ import 'dart:developer';
 import 'package:affinity/core/common/widgets/loader.dart';
 import 'package:affinity/core/theme/app_pallete.dart';
 import 'package:affinity/core/utils/show_snackbar.dart';
-import 'package:affinity/features/blog/presentation/bloc/blog_bloc.dart';
-import 'package:affinity/features/blog/presentation/pages/add_new_blog_page.dart';
-import 'package:affinity/features/blog/presentation/widgets/blog_card.dart';
+import 'package:affinity/features/blog/presentation/bloc/event_bloc.dart';
+import 'package:affinity/features/blog/presentation/pages/add_new_event_page.dart';
+import 'package:affinity/features/blog/presentation/widgets/event_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BlogPage extends StatefulWidget {
+class EventPage extends StatefulWidget {
   static route() => MaterialPageRoute(
-        builder: (context) => const BlogPage(),
+        builder: (context) => const EventPage(),
       );
-  const BlogPage({super.key});
+  const EventPage({super.key});
 
   @override
-  State<BlogPage> createState() => _BlogPageState();
+  State<EventPage> createState() => _EventPageState();
 }
 
-class _BlogPageState extends State<BlogPage> {
+class _EventPageState extends State<EventPage> {
   @override
   void initState() {
     super.initState();
-    context.read<BlogBloc>().add(BlogFetchAllBlogs());
+    context.read<EventBloc>().add(BlogFetchAllBlogs());
   }
 
   Future<void> _onRefresh() async {
-    context.read<BlogBloc>().add(BlogFetchAllBlogs());
+    context.read<EventBloc>().add(BlogFetchAllBlogs());
   }
 
   @override
@@ -39,7 +39,7 @@ class _BlogPageState extends State<BlogPage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(context, AddNewBlogPage.route());
+              Navigator.push(context, AddNewEventPage.route());
             },
             icon: const Icon(
               CupertinoIcons.add_circled,
@@ -47,25 +47,25 @@ class _BlogPageState extends State<BlogPage> {
           ),
         ],
       ),
-      body: BlocConsumer<BlogBloc, BlogState>(
+      body: BlocConsumer<EventBloc, EventState>(
         listener: (context, state) {
-          if (state is BlogFailure) {
+          if (state is EventFailure) {
             log(state.error);
             showSnackBar(context, state.error);
           }
         },
         builder: (context, state) {
-          if (state is BlogLoading) {
+          if (state is EventLoading) {
             return const Loader();
           }
-          if (state is BlogsDisplaySuccess) {
+          if (state is EventsDisplaySuccess) {
             return RefreshIndicator.adaptive(
               onRefresh: _onRefresh,
               child: ListView.builder(
-                itemCount: state.blogs.length,
+                itemCount: state.event.length,
                 itemBuilder: (context, index) {
-                  final blog = state.blogs[index];
-                  return BlogCard(
+                  final blog = state.event[index];
+                  return EventCard(
                     blog: blog,
                     color: index % 2 == 0
                         ? AppPallete.gradient1

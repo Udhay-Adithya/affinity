@@ -6,24 +6,24 @@ import 'package:affinity/core/constants/constants.dart';
 import 'package:affinity/core/theme/app_pallete.dart';
 import 'package:affinity/core/utils/pick_image.dart';
 import 'package:affinity/core/utils/show_snackbar.dart';
-import 'package:affinity/features/blog/presentation/bloc/blog_bloc.dart';
-import 'package:affinity/features/blog/presentation/pages/blog_page.dart';
-import 'package:affinity/features/blog/presentation/widgets/blog_editor.dart';
+import 'package:affinity/features/blog/presentation/bloc/event_bloc.dart';
+import 'package:affinity/features/blog/presentation/pages/event_page.dart';
+import 'package:affinity/features/blog/presentation/widgets/event_editor.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AddNewBlogPage extends StatefulWidget {
+class AddNewEventPage extends StatefulWidget {
   static route() => MaterialPageRoute(
-        builder: (context) => const AddNewBlogPage(),
+        builder: (context) => const AddNewEventPage(),
       );
-  const AddNewBlogPage({super.key});
+  const AddNewEventPage({super.key});
 
   @override
-  State<AddNewBlogPage> createState() => _AddNewBlogPageState();
+  State<AddNewEventPage> createState() => _AddNewEventPageState();
 }
 
-class _AddNewBlogPageState extends State<AddNewBlogPage> {
+class _AddNewEventPageState extends State<AddNewEventPage> {
   final titleController = TextEditingController();
   final contentController = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -45,8 +45,8 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
         image != null) {
       final posterId =
           (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id;
-      context.read<BlogBloc>().add(
-            BlogUpload(
+      context.read<EventBloc>().add(
+            EventUpload(
               posterId: posterId,
               title: titleController.text.trim(),
               content: contentController.text.trim(),
@@ -77,20 +77,20 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
           ),
         ],
       ),
-      body: BlocConsumer<BlogBloc, BlogState>(
+      body: BlocConsumer<EventBloc, EventState>(
         listener: (context, state) {
-          if (state is BlogFailure) {
+          if (state is EventFailure) {
             showSnackBar(context, state.error);
-          } else if (state is BlogUploadSuccess) {
+          } else if (state is EventUploadSuccess) {
             Navigator.pushAndRemoveUntil(
               context,
-              BlogPage.route(),
+              EventPage.route(),
               (route) => false,
             );
           }
         },
         builder: (context, state) {
-          if (state is BlogLoading) {
+          if (state is EventLoading) {
             return const Loader();
           }
 
@@ -126,7 +126,7 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
                               radius: const Radius.circular(10),
                               borderType: BorderType.RRect,
                               strokeCap: StrokeCap.round,
-                              child: Container(
+                              child: SizedBox(
                                 height: 150,
                                 width: double.infinity,
                                 child: const Column(
@@ -168,7 +168,7 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
                                   child: Chip(
                                     label: Text(e),
                                     color: selectedTopics.contains(e)
-                                        ? const MaterialStatePropertyAll(
+                                        ? const WidgetStatePropertyAll(
                                             AppPallete.gradient1,
                                           )
                                         : null,
@@ -185,12 +185,12 @@ class _AddNewBlogPageState extends State<AddNewBlogPage> {
                       ),
                     ),
                     const SizedBox(height: 10),
-                    BlogEditor(
+                    EventEditor(
                       controller: titleController,
                       hintText: 'Event title',
                     ),
                     const SizedBox(height: 10),
-                    BlogEditor(
+                    EventEditor(
                       controller: contentController,
                       hintText: 'Event description',
                     ),

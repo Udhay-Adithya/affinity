@@ -5,7 +5,7 @@ import 'package:affinity/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:affinity/features/auth/presentation/pages/login_page.dart';
 import 'package:affinity/features/auth/presentation/widgets/auth_field.dart';
 import 'package:affinity/features/auth/presentation/widgets/auth_gradient_button.dart';
-import 'package:affinity/features/blog/presentation/pages/blog_page.dart';
+import 'package:affinity/features/blog/presentation/pages/event_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,7 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
             } else if (state is AuthSuccess) {
               Navigator.pushAndRemoveUntil(
                 context,
-                BlogPage.route(),
+                EventPage.route(),
                 (route) => false,
               );
             }

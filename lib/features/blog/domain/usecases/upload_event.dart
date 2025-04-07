@@ -1,17 +1,17 @@
 import 'dart:io';
 import 'package:affinity/core/error/failures.dart';
 import 'package:affinity/core/usecase/usecase.dart';
-import 'package:affinity/features/blog/domain/entities/blog.dart';
-import 'package:affinity/features/blog/domain/repositories/blog_repository.dart';
+import 'package:affinity/features/blog/domain/entities/event.dart';
+import 'package:affinity/features/blog/domain/repositories/event_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
-class UploadBlog implements UseCase<Blog, UploadBlogParams> {
-  final BlogRepository blogRepository;
-  UploadBlog(this.blogRepository);
+class UploadEvent implements UseCase<Event, UploadEventParams> {
+  final EventRepository eventRepository;
+  UploadEvent(this.eventRepository);
 
   @override
-  Future<Either<Failure, Blog>> call(UploadBlogParams params) async {
-    return await blogRepository.uploadBlog(
+  Future<Either<Failure, Event>> call(UploadEventParams params) async {
+    return await eventRepository.uploadEvent(
       image: params.image,
       title: params.title,
       content: params.content,
@@ -21,14 +21,14 @@ class UploadBlog implements UseCase<Blog, UploadBlogParams> {
   }
 }
 
-class UploadBlogParams {
+class UploadEventParams {
   final String posterId;
   final String title;
   final String content;
   final File image;
   final List<String> topics;
 
-  UploadBlogParams({
+  UploadEventParams({
     required this.posterId,
     required this.title,
     required this.content,

@@ -2,8 +2,8 @@ import 'package:affinity/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:affinity/core/theme/theme.dart';
 import 'package:affinity/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:affinity/features/auth/presentation/pages/login_page.dart';
-import 'package:affinity/features/blog/presentation/bloc/blog_bloc.dart';
-import 'package:affinity/features/blog/presentation/pages/blog_page.dart';
+import 'package:affinity/features/blog/presentation/bloc/event_bloc.dart';
+import 'package:affinity/features/blog/presentation/pages/event_page.dart';
 import 'package:affinity/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +20,7 @@ void main() async {
         create: (_) => serviceLocator<AuthBloc>(),
       ),
       BlocProvider(
-        create: (_) => serviceLocator<BlogBloc>(),
+        create: (_) => serviceLocator<EventBloc>(),
       ),
     ],
     child: const MyApp(),
@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
         },
         builder: (context, isLoggedIn) {
           if (isLoggedIn) {
-            return const BlogPage();
+            return const EventPage();
           }
           return const LoginPage();
         },

@@ -1,12 +1,12 @@
 import 'package:affinity/core/utils/calculate_reading_time.dart';
-import 'package:affinity/features/blog/domain/entities/blog.dart';
-import 'package:affinity/features/blog/presentation/pages/blog_viewer_page.dart';
+import 'package:affinity/features/blog/domain/entities/event.dart';
+import 'package:affinity/features/blog/presentation/pages/event_viewer_page.dart';
 import 'package:flutter/material.dart';
 
-class BlogCard extends StatelessWidget {
-  final Blog blog;
+class EventCard extends StatelessWidget {
+  final Event blog;
   final Color color;
-  const BlogCard({
+  const EventCard({
     super.key,
     required this.blog,
     required this.color,

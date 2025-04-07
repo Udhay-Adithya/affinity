@@ -1,25 +1,39 @@
 import 'package:affinity/core/theme/app_pallete.dart';
 import 'package:affinity/core/utils/calculate_reading_time.dart';
 import 'package:affinity/core/utils/format_date.dart';
-import 'package:affinity/features/blog/domain/entities/blog.dart';
+import 'package:affinity/features/blog/domain/entities/event.dart';
 import 'package:flutter/material.dart';
 
 class BlogViewerPage extends StatelessWidget {
-  static route(Blog blog) => MaterialPageRoute(
+  static route(Event event) => MaterialPageRoute(
         builder: (context) => BlogViewerPage(
-          blog: blog,
+          event: event,
         ),
       );
-  final Blog blog;
+  final Event event;
   const BlogViewerPage({
     super.key,
-    required this.blog,
+    required this.event,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text(
+              "Join",
+              style: TextStyle(
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ],
+      ),
       body: Scrollbar(
         child: SingleChildScrollView(
           child: Padding(
@@ -28,7 +42,7 @@ class BlogViewerPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  blog.title,
+                  event.title,
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
@@ -36,7 +50,7 @@ class BlogViewerPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  'By ${blog.posterName}',
+                  'By ${event.posterName}',
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
@@ -44,7 +58,7 @@ class BlogViewerPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  '${formatDateBydMMMYYYY(blog.updatedAt)} . ${calculateReadingTime(blog.content)} min',
+                  '${formatDateBydMMMYYYY(event.updatedAt)} . ${calculateReadingTime(event.content)} min',
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     color: AppPallete.greyColor,
@@ -54,11 +68,11 @@ class BlogViewerPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 ClipRRect(
                   borderRadius: BorderRadius.circular(10),
-                  child: Image.network(blog.imageUrl),
+                  child: Image.network(event.imageUrl),
                 ),
                 const SizedBox(height: 20),
                 Text(
-                  blog.content,
+                  event.content,
                   style: const TextStyle(
                     fontSize: 16,
                     height: 2,

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class BlogEditor extends StatelessWidget {
+class EventEditor extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
-  const BlogEditor({
+  const EventEditor({
     super.key,
     required this.controller,
     required this.hintText,
