@@ -3,11 +3,11 @@ import 'package:affinity/core/constants/constants.dart';
 import 'package:affinity/core/error/exceptions.dart';
 import 'package:affinity/core/error/failures.dart';
 import 'package:affinity/core/network/connection_checker.dart';
-import 'package:affinity/features/blog/data/datasources/event_local_data_source.dart';
-import 'package:affinity/features/blog/data/datasources/event_remote_data_source.dart';
-import 'package:affinity/features/blog/data/models/event_model.dart';
-import 'package:affinity/features/blog/domain/entities/event.dart';
-import 'package:affinity/features/blog/domain/repositories/event_repository.dart';
+import 'package:affinity/features/event/data/datasources/event_local_data_source.dart';
+import 'package:affinity/features/event/data/datasources/event_remote_data_source.dart';
+import 'package:affinity/features/event/data/models/event_model.dart';
+import 'package:affinity/features/event/domain/entities/event.dart';
+import 'package:affinity/features/event/domain/repositories/event_repository.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:uuid/uuid.dart';
 

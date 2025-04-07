@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:affinity/core/error/failures.dart';
 import 'package:affinity/core/usecase/usecase.dart';
-import 'package:affinity/features/blog/domain/entities/event.dart';
-import 'package:affinity/features/blog/domain/repositories/event_repository.dart';
+import 'package:affinity/features/event/domain/entities/event.dart';
+import 'package:affinity/features/event/domain/repositories/event_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
 class UploadEvent implements UseCase<Event, UploadEventParams> {

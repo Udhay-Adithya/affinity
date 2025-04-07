@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:affinity/core/error/failures.dart';
-import 'package:affinity/features/blog/domain/entities/event.dart';
+import 'package:affinity/features/event/domain/entities/event.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract interface class EventRepository {

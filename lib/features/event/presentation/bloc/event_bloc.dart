@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:affinity/core/usecase/usecase.dart';
-import 'package:affinity/features/blog/domain/entities/event.dart';
-import 'package:affinity/features/blog/domain/usecases/get_all_events.dart';
-import 'package:affinity/features/blog/domain/usecases/upload_event.dart';
+import 'package:affinity/features/event/domain/entities/event.dart';
+import 'package:affinity/features/event/domain/usecases/get_all_events.dart';
+import 'package:affinity/features/event/domain/usecases/upload_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'event_event.dart';

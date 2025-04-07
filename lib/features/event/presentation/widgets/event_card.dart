@@ -1,6 +1,6 @@
 import 'package:affinity/core/utils/calculate_reading_time.dart';
-import 'package:affinity/features/blog/domain/entities/event.dart';
-import 'package:affinity/features/blog/presentation/pages/event_viewer_page.dart';
+import 'package:affinity/features/event/domain/entities/event.dart';
+import 'package:affinity/features/event/presentation/pages/event_viewer_page.dart';
 import 'package:flutter/material.dart';
 
 class EventCard extends StatelessWidget {

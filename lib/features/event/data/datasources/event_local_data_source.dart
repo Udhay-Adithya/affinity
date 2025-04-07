@@ -1,4 +1,4 @@
-import 'package:affinity/features/blog/data/models/event_model.dart';
+import 'package:affinity/features/event/data/models/event_model.dart';
 import 'package:hive/hive.dart';
 
 abstract interface class EventLocalDataSource {

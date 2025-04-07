@@ -1,4 +1,4 @@
-import 'package:affinity/features/blog/domain/entities/event.dart';
+import 'package:affinity/features/event/domain/entities/event.dart';
 
 class EventModel extends Event {
   EventModel({

@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:affinity/core/error/exceptions.dart';
-import 'package:affinity/features/blog/data/models/event_model.dart';
+import 'package:affinity/features/event/data/models/event_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class EventRemoteDataSource {
