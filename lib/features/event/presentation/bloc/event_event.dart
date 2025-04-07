@@ -9,6 +9,7 @@ final class EventUpload extends EventEvent {
   final String content;
   final File image;
   final List<String> topics;
+  final int membersLimit;
 
   EventUpload({
     required this.posterId,
@@ -16,6 +17,7 @@ final class EventUpload extends EventEvent {
     required this.content,
     required this.image,
     required this.topics,
+    required this.membersLimit,
   });
 }
 

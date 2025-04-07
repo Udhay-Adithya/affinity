@@ -17,6 +17,7 @@ class UploadEvent implements UseCase<Event, UploadEventParams> {
       content: params.content,
       posterId: params.posterId,
       topics: params.topics,
+      maxMembers: params.membersLimit,
     );
   }
 }
@@ -26,6 +27,7 @@ class UploadEventParams {
   final String title;
   final String content;
   final File image;
+  final int membersLimit;
   final List<String> topics;
 
   UploadEventParams({
@@ -33,6 +35,7 @@ class UploadEventParams {
     required this.title,
     required this.content,
     required this.image,
+    required this.membersLimit,
     required this.topics,
   });
 }

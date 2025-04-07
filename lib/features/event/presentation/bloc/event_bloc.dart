@@ -31,6 +31,7 @@ class EventBloc extends Bloc<EventEvent, EventState> {
         posterId: event.posterId,
         title: event.title,
         content: event.content,
+        membersLimit: event.membersLimit,
         image: event.image,
         topics: event.topics,
       ),

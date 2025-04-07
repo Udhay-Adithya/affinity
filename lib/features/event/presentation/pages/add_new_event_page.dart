@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:affinity/core/common/cubits/app_user/app_user_cubit.dart';
@@ -26,6 +27,7 @@ class AddNewEventPage extends StatefulWidget {
 class _AddNewEventPageState extends State<AddNewEventPage> {
   final titleController = TextEditingController();
   final contentController = TextEditingController();
+  final membersLimitController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   List<String> selectedTopics = [];
   File? image;
@@ -45,11 +47,13 @@ class _AddNewEventPageState extends State<AddNewEventPage> {
         image != null) {
       final posterId =
           (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id;
+      log(posterId.toString());
       context.read<EventBloc>().add(
             EventUpload(
               posterId: posterId,
               title: titleController.text.trim(),
               content: contentController.text.trim(),
+              membersLimit: int.parse(membersLimitController.text.trim()),
               image: image!,
               topics: selectedTopics,
             ),
@@ -193,6 +197,11 @@ class _AddNewEventPageState extends State<AddNewEventPage> {
                     EventEditor(
                       controller: contentController,
                       hintText: 'Event description',
+                    ),
+                    const SizedBox(height: 10),
+                    EventEditor(
+                      controller: membersLimitController,
+                      hintText: 'Maximum Members Limit',
                     ),
                   ],
                 ),
