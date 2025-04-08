@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -91,10 +90,10 @@ class EventRemoteDataSourceImpl implements EventRemoteDataSource {
         currentMembers.add(userId);
         final eventData = await supabaseClient
             .from('events')
-            .update({'members_list': jsonEncode(currentMembers)})
+            .update({'members_list': currentMembers})
             .eq('post_id', event.id)
             .select();
-        log("Event Data: $eventData");
+        log("Event Data: $eventData.");
         return EventModel.fromJson(eventData.first);
       } else {
         throw ServerException("You are already a member of this event");
