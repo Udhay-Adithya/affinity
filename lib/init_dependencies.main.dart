@@ -108,11 +108,23 @@ void _initBlog() {
         serviceLocator(),
       ),
     )
+    ..registerFactory(
+      () => JoinEvent(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory(
+      () => LeaveEvent(
+        serviceLocator(),
+      ),
+    )
     // Bloc
     ..registerLazySingleton(
       () => EventBloc(
         uploadEvent: serviceLocator(),
         getAllEvents: serviceLocator(),
+        joinEvent: serviceLocator(),
+        leaveEvent: serviceLocator(),
       ),
     );
 }

@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
@@ -13,8 +14,10 @@ abstract interface class EventRemoteDataSource {
   });
   Future<List<EventModel>> getAllEvents();
 
-  Future<void> joinEvent();
-  Future<void> leaveEvent();
+  Future<EventModel> joinEvent(
+      {required EventModel event, required String userId});
+  Future<EventModel> leaveEvent(
+      {required EventModel event, required String userId});
 }
 
 class EventRemoteDataSourceImpl implements EventRemoteDataSource {
@@ -24,10 +27,10 @@ class EventRemoteDataSourceImpl implements EventRemoteDataSource {
   @override
   Future<EventModel> uploadEvent(EventModel event) async {
     try {
-      final blogData =
+      final eventData =
           await supabaseClient.from('events').insert(event.toJson()).select();
 
-      return EventModel.fromJson(blogData.first);
+      return EventModel.fromJson(eventData.first);
     } on PostgrestException catch (e) {
       throw ServerException(e.message);
     } catch (e) {
@@ -77,8 +80,29 @@ class EventRemoteDataSourceImpl implements EventRemoteDataSource {
   }
 
   @override
-  Future<void> joinEvent() async {
-    try {} on PostgrestException catch (e) {
+  Future<EventModel> joinEvent(
+      {required EventModel event, required String userId}) async {
+    try {
+      final List<String> currentMembers = event.members;
+      log("Current Members: $currentMembers");
+      log("User Id: $userId");
+      log("Event Id: ${event.id}");
+      if (!currentMembers.contains(userId)) {
+        currentMembers.add(userId);
+        final eventData = await supabaseClient
+            .from('events')
+            .update({'members_list': jsonEncode(currentMembers)})
+            .eq('post_id', event.id)
+            .select();
+        log("Event Data: $eventData");
+        return EventModel.fromJson(eventData.first);
+      } else {
+        throw ServerException("You are already a member of this event");
+      }
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
+    } on ServerException catch (e) {
+      log("Error: ${e.message}");
       throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
@@ -86,8 +110,22 @@ class EventRemoteDataSourceImpl implements EventRemoteDataSource {
   }
 
   @override
-  Future<void> leaveEvent() async {
-    try {} on PostgrestException catch (e) {
+  Future<EventModel> leaveEvent(
+      {required EventModel event, required String userId}) async {
+    try {
+      final List<String> currentMembers = event.members;
+      if (currentMembers.contains(userId)) {
+        currentMembers.remove(userId);
+        final eventData = await supabaseClient
+            .from('events')
+            .update({'members_list': currentMembers})
+            .eq('post_id', event.id)
+            .select();
+        return EventModel.fromJson(eventData.first);
+      } else {
+        throw ServerException("You are not a member of this event");
+      }
+    } on PostgrestException catch (e) {
       throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());

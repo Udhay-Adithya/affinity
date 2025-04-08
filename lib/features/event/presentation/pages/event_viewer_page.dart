@@ -1,8 +1,11 @@
+import 'package:affinity/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:affinity/core/theme/app_pallete.dart';
 import 'package:affinity/core/utils/calculate_post_time.dart';
 import 'package:affinity/core/utils/format_date.dart';
 import 'package:affinity/features/event/domain/entities/event.dart';
+import 'package:affinity/features/event/presentation/widgets/event_interact_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BlogViewerPage extends StatelessWidget {
   static route(Event event) => MaterialPageRoute(
@@ -18,10 +21,12 @@ class BlogViewerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userId =
+        (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id;
     return Scaffold(
       appBar: AppBar(
         actions: [
-          if (event.members.contains(event.posterId))
+          if (event.posterId == userId)
             TextButton(
               onPressed: () {},
               child: const Text(
@@ -32,15 +37,9 @@ class BlogViewerPage extends StatelessWidget {
               ),
             )
           else
-            TextButton(
-              onPressed: () {},
-              child: const Text(
-                "Join",
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
-            ),
+            EventInteractButton(
+              event: event,
+            )
         ],
       ),
       body: Scrollbar(

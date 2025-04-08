@@ -22,3 +22,21 @@ final class EventUpload extends EventEvent {
 }
 
 final class BlogFetchAllBlogs extends EventEvent {}
+
+final class EventJoinEvent extends EventEvent {
+  final String userId;
+  final Event event;
+  EventJoinEvent({
+    required this.userId,
+    required this.event,
+  });
+}
+
+final class EventLeaveEvent extends EventEvent {
+  final String userId;
+  final Event event;
+  EventLeaveEvent({
+    required this.userId,
+    required this.event,
+  });
+}

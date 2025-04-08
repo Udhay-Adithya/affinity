@@ -18,3 +18,13 @@ final class EventsDisplaySuccess extends EventState {
   final List<Event> event;
   EventsDisplaySuccess(this.event);
 }
+
+final class EventJoinSuccess extends EventState {
+  final Event event;
+  EventJoinSuccess(this.event);
+}
+
+final class EventLeaveSuccess extends EventState {
+  final Event event;
+  EventLeaveSuccess(this.event);
+}

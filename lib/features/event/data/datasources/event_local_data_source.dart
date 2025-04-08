@@ -2,8 +2,8 @@ import 'package:affinity/features/event/data/models/event_model.dart';
 import 'package:hive/hive.dart';
 
 abstract interface class EventLocalDataSource {
-  void uploadLocalBlogs({required List<EventModel> blogs});
-  List<EventModel> loadBlogs();
+  void uploadLocalEvents({required List<EventModel> events});
+  List<EventModel> loadEvents();
 }
 
 class EventLocalDataSourceImpl implements EventLocalDataSource {
@@ -11,7 +11,7 @@ class EventLocalDataSourceImpl implements EventLocalDataSource {
   EventLocalDataSourceImpl(this.box);
 
   @override
-  List<EventModel> loadBlogs() {
+  List<EventModel> loadEvents() {
     List<EventModel> blogs = [];
     box.read(() {
       for (int i = 0; i < box.length; i++) {
@@ -23,12 +23,12 @@ class EventLocalDataSourceImpl implements EventLocalDataSource {
   }
 
   @override
-  void uploadLocalBlogs({required List<EventModel> blogs}) {
+  void uploadLocalEvents({required List<EventModel> events}) {
     box.clear();
 
     box.write(() {
-      for (int i = 0; i < blogs.length; i++) {
-        box.put(i.toString(), blogs[i].toJson());
+      for (int i = 0; i < events.length; i++) {
+        box.put(i.toString(), events[i].toJson());
       }
     });
   }

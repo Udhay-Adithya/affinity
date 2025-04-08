@@ -16,7 +16,8 @@ abstract interface class EventRepository {
 
   Future<Either<Failure, List<Event>>> getAllEvents();
 
-  Future<void> joinEvent();
-
-  Future<void> leaveEvent();
+  Future<Either<Failure, Event>> joinEvent(
+      {required Event event, required String userId});
+  Future<Either<Failure, Event>> leaveEvent(
+      {required Event event, required String userId});
 }

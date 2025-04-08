@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:affinity/core/constants/constants.dart';
 import 'package:affinity/core/error/exceptions.dart';
 import 'package:affinity/core/error/failures.dart';
@@ -12,12 +13,12 @@ import 'package:fpdart/fpdart.dart';
 import 'package:uuid/uuid.dart';
 
 class EventRepositoryImpl implements EventRepository {
-  final EventRemoteDataSource blogRemoteDataSource;
-  final EventLocalDataSource blogLocalDataSource;
+  final EventRemoteDataSource eventRemoteDataSource;
+  final EventLocalDataSource eventLocalDataSource;
   final ConnectionChecker connectionChecker;
   EventRepositoryImpl(
-    this.blogRemoteDataSource,
-    this.blogLocalDataSource,
+    this.eventRemoteDataSource,
+    this.eventLocalDataSource,
     this.connectionChecker,
   );
 
@@ -46,7 +47,7 @@ class EventRepositoryImpl implements EventRepository {
         updatedAt: DateTime.now(),
       );
 
-      final imageUrl = await blogRemoteDataSource.uploadEventImage(
+      final imageUrl = await eventRemoteDataSource.uploadEventImage(
         image: image,
         event: eventModel,
       );
@@ -55,7 +56,7 @@ class EventRepositoryImpl implements EventRepository {
         imageUrl: imageUrl,
       );
 
-      final uploadedEvent = await blogRemoteDataSource.uploadEvent(eventModel);
+      final uploadedEvent = await eventRemoteDataSource.uploadEvent(eventModel);
       return right(uploadedEvent);
     } on ServerException catch (e) {
       return left(Failure(e.message));
@@ -66,24 +67,54 @@ class EventRepositoryImpl implements EventRepository {
   Future<Either<Failure, List<Event>>> getAllEvents() async {
     try {
       if (!await (connectionChecker.isConnected)) {
-        final blogs = blogLocalDataSource.loadBlogs();
+        final blogs = eventLocalDataSource.loadEvents();
         return right(blogs);
       }
-      final blogs = await blogRemoteDataSource.getAllEvents();
-      blogLocalDataSource.uploadLocalBlogs(blogs: blogs);
-      return right(blogs);
+      final events = await eventRemoteDataSource.getAllEvents();
+      eventLocalDataSource.uploadLocalEvents(events: events);
+      return right(events);
     } on ServerException catch (e) {
       return left(Failure(e.message));
     }
   }
 
   @override
-  Future<void> joinEvent() async {
-    try {} on ServerException catch (e) {}
+  Future<Either<Failure, Event>> joinEvent({
+    required Event event,
+    required String userId,
+  }) async {
+    try {
+      if (await (connectionChecker.isConnected)) {
+        final eventData = await eventRemoteDataSource.joinEvent(
+          event: event as EventModel,
+          userId: userId,
+        );
+        return right(eventData);
+      } else {
+        throw ServerException("No internet connection");
+      }
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
   }
 
   @override
-  Future<void> leaveEvent() async {
-    try {} on ServerException catch (e) {}
+  Future<Either<Failure, Event>> leaveEvent({
+    required Event event,
+    required String userId,
+  }) async {
+    try {
+      if (await (connectionChecker.isConnected)) {
+        final eventData = await eventRemoteDataSource.leaveEvent(
+          event: event as EventModel,
+          userId: userId,
+        );
+        return right(eventData);
+      } else {
+        throw ServerException("No internet connection");
+      }
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
   }
 }
