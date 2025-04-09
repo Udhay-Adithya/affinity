@@ -1,6 +1,6 @@
 import 'package:affinity/core/common/cubits/app_user/app_user_cubit.dart';
-import 'package:affinity/core/usecase/usecase.dart';
 import 'package:affinity/core/common/entities/user.dart';
+import 'package:affinity/core/usecase/usecase.dart';
 import 'package:affinity/features/auth/domain/usecases/current_user.dart';
 import 'package:affinity/features/auth/domain/usecases/user_login.dart';
 import 'package:affinity/features/auth/domain/usecases/user_sign_up.dart';

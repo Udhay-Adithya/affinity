@@ -1,9 +1,11 @@
+import 'dart:developer';
+
+import 'package:affinity/core/common/entities/user.dart';
 import 'package:affinity/core/constants/constants.dart';
 import 'package:affinity/core/error/exceptions.dart';
 import 'package:affinity/core/error/failures.dart';
 import 'package:affinity/core/network/connection_checker.dart';
 import 'package:affinity/features/auth/data/datasources/auth_remote_data_source.dart';
-import 'package:affinity/core/common/entities/user.dart';
 import 'package:affinity/features/auth/data/models/user_model.dart';
 import 'package:affinity/features/auth/domain/repository/auth_repository.dart';
 import 'package:fpdart/fpdart.dart';
@@ -31,10 +33,12 @@ class AuthRepositoryImpl implements AuthRepository {
             id: session.user.id,
             email: session.user.email ?? '',
             name: '',
+            isAdmin: false,
           ),
         );
       }
       final user = await remoteDataSource.getCurrentUserData();
+      log("Current User: ${user.toString()}");
       if (user == null) {
         return left(Failure('User not logged in!'));
       }
