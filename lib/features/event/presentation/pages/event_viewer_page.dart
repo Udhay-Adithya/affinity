@@ -9,14 +9,14 @@ import 'package:affinity/features/event/presentation/widgets/event_interact_butt
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BlogViewerPage extends StatelessWidget {
+class EventViewerPage extends StatelessWidget {
   static route(Event event) => MaterialPageRoute(
-        builder: (context) => BlogViewerPage(
+        builder: (context) => EventViewerPage(
           event: event,
         ),
       );
   final Event event;
-  const BlogViewerPage({
+  const EventViewerPage({
     super.key,
     required this.event,
   });

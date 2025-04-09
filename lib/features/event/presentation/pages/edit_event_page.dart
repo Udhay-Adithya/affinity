@@ -8,8 +8,10 @@ import 'package:affinity/core/theme/app_pallete.dart';
 import 'package:affinity/core/utils/pick_image.dart';
 import 'package:affinity/core/utils/show_snackbar.dart';
 import 'package:affinity/features/event/data/models/event_model.dart';
+import 'package:affinity/features/event/domain/entities/event.dart';
 import 'package:affinity/features/event/presentation/bloc/event_bloc.dart';
 import 'package:affinity/features/event/presentation/pages/event_page.dart';
+import 'package:affinity/features/event/presentation/pages/event_viewer_page.dart';
 import 'package:affinity/features/event/presentation/widgets/event_editor.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +32,16 @@ class _EditEventPageState extends State<EditEventPage> {
   final formKey = GlobalKey<FormState>();
   List<String> selectedTopics = [];
   File? image;
+  late Event updatedEvent;
+
+  @override
+  void initState() {
+    super.initState();
+    titleController.text = widget.event.title;
+    contentController.text = widget.event.content;
+    membersLimitController.text = widget.event.maxMembers.toString();
+    selectedTopics = widget.event.topics;
+  }
 
   void selectImage() async {
     final pickedImage = await pickImage();
@@ -41,12 +53,10 @@ class _EditEventPageState extends State<EditEventPage> {
   }
 
   void updateEvent() {
-    if (formKey.currentState!.validate() &&
-        selectedTopics.isNotEmpty &&
-        image != null) {
+    if (formKey.currentState!.validate() && selectedTopics.isNotEmpty) {
       final posterId =
           (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id;
-      final updatedEvent = widget.event.copyWith(
+      updatedEvent = widget.event.copyWith(
         title: titleController.text.trim(),
         content: contentController.text.trim(),
         maxMembers: int.parse(membersLimitController.text.trim()),
@@ -77,6 +87,11 @@ class _EditEventPageState extends State<EditEventPage> {
           IconButton(
             onPressed: () {
               updateEvent();
+              Navigator.pushAndRemoveUntil(
+                context,
+                EventPage.route(),
+                (route) => false,
+              );
             },
             icon: const Icon(Icons.done_rounded),
           ),
@@ -89,7 +104,9 @@ class _EditEventPageState extends State<EditEventPage> {
           } else if (state is EventUploadSuccess) {
             Navigator.pushAndRemoveUntil(
               context,
-              EventPage.route(),
+              MaterialPageRoute(
+                builder: (_) => EventViewerPage(event: updatedEvent),
+              ),
               (route) => false,
             );
           }

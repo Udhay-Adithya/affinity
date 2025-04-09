@@ -62,6 +62,7 @@ class _EventPageState extends State<EventPage> {
           }
         },
         builder: (context, state) {
+          log(state.toString());
           if (state is EventLoading) {
             return const Loader();
           }

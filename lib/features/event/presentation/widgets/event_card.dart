@@ -16,7 +16,7 @@ class EventCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(context, BlogViewerPage.route(blog));
+        Navigator.push(context, EventViewerPage.route(blog));
       },
       child: Container(
         height: 200,
