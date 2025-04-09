@@ -28,3 +28,8 @@ final class EventLeaveSuccess extends EventState {
   final Event event;
   EventLeaveSuccess(this.event);
 }
+
+final class UpdateEventSuccess extends EventState {
+  final Event event;
+  UpdateEventSuccess(this.event);
+}

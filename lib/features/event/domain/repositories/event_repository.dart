@@ -14,6 +14,8 @@ abstract interface class EventRepository {
     int maxMembers = 4,
   });
 
+  Future<Either<Failure, Event>> updateEvent({required Event event});
+
   Future<Either<Failure, List<Event>>> getAllEvents();
 
   Future<Either<Failure, Event>> joinEvent(

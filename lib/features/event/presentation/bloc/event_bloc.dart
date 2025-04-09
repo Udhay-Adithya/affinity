@@ -5,6 +5,7 @@ import 'package:affinity/features/event/domain/entities/event.dart';
 import 'package:affinity/features/event/domain/usecases/get_all_events.dart';
 import 'package:affinity/features/event/domain/usecases/join_event.dart';
 import 'package:affinity/features/event/domain/usecases/leave_event.dart';
+import 'package:affinity/features/event/domain/usecases/update_event.dart';
 import 'package:affinity/features/event/domain/usecases/upload_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,22 +18,26 @@ class EventBloc extends Bloc<EventEvent, EventState> {
   final GetAllEvents _getAllEvents;
   final JoinEvent _joinEvent;
   final LeaveEvent _leaveEvent;
+  final UpdateEvent _updateEvent;
 
-  EventBloc({
-    required UploadEvent uploadEvent,
-    required GetAllEvents getAllEvents,
-    required JoinEvent joinEvent,
-    required LeaveEvent leaveEvent,
-  })  : _uploadEvent = uploadEvent,
+  EventBloc(
+      {required UploadEvent uploadEvent,
+      required GetAllEvents getAllEvents,
+      required JoinEvent joinEvent,
+      required LeaveEvent leaveEvent,
+      required UpdateEvent updateEvent})
+      : _uploadEvent = uploadEvent,
         _getAllEvents = getAllEvents,
         _joinEvent = joinEvent,
         _leaveEvent = leaveEvent,
+        _updateEvent = updateEvent,
         super(EventInitial()) {
     on<EventEvent>((event, emit) => emit(EventLoading()));
     on<EventUpload>(_onBlogUpload);
     on<BlogFetchAllBlogs>(_onFetchAllBlogs);
     on<EventJoinEvent>(_onJoinEvent);
     on<EventLeaveEvent>(_onLeaveEvent);
+    on<UpdateEventEvent>(_onUpdateEvent);
   }
 
   void _onBlogUpload(
@@ -53,6 +58,17 @@ class EventBloc extends Bloc<EventEvent, EventState> {
     res.fold(
       (l) => emit(EventFailure(l.message)),
       (r) => emit(EventUploadSuccess()),
+    );
+  }
+
+  void _onUpdateEvent(
+    UpdateEventEvent event,
+    Emitter<EventState> emit,
+  ) async {
+    final res = await _updateEvent(UpdateEventParams(event: event.event));
+    res.fold(
+      (l) => emit(EventFailure(l.message)),
+      (r) => emit(UpdateEventSuccess(r)),
     );
   }
 

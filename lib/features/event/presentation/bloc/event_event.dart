@@ -40,3 +40,10 @@ final class EventLeaveEvent extends EventEvent {
     required this.event,
   });
 }
+
+final class UpdateEventEvent extends EventEvent {
+  final Event event;
+  UpdateEventEvent({
+    required this.event,
+  });
+}

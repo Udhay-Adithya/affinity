@@ -7,6 +7,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class EventRemoteDataSource {
   Future<EventModel> uploadEvent(EventModel event);
+  Future<EventModel> updateEvent(EventModel event);
   Future<String> uploadEventImage({
     required File image,
     required EventModel event,
@@ -28,6 +29,23 @@ class EventRemoteDataSourceImpl implements EventRemoteDataSource {
     try {
       final eventData =
           await supabaseClient.from('events').insert(event.toJson()).select();
+
+      return EventModel.fromJson(eventData.first);
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
+    } catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
+
+  @override
+  Future<EventModel> updateEvent(EventModel event) async {
+    try {
+      final eventData = await supabaseClient
+          .from('events')
+          .update(event.toJson())
+          .eq('post_id', event.id)
+          .select();
 
       return EventModel.fromJson(eventData.first);
     } on PostgrestException catch (e) {
@@ -79,8 +97,10 @@ class EventRemoteDataSourceImpl implements EventRemoteDataSource {
   }
 
   @override
-  Future<EventModel> joinEvent(
-      {required EventModel event, required String userId}) async {
+  Future<EventModel> joinEvent({
+    required EventModel event,
+    required String userId,
+  }) async {
     try {
       final List<String> currentMembers = event.members;
       log("Current Members: $currentMembers");
@@ -109,8 +129,10 @@ class EventRemoteDataSourceImpl implements EventRemoteDataSource {
   }
 
   @override
-  Future<EventModel> leaveEvent(
-      {required EventModel event, required String userId}) async {
+  Future<EventModel> leaveEvent({
+    required EventModel event,
+    required String userId,
+  }) async {
     try {
       final List<String> currentMembers = event.members;
       if (currentMembers.contains(userId)) {

@@ -2,7 +2,9 @@ import 'package:affinity/core/common/cubits/app_user/app_user_cubit.dart';
 import 'package:affinity/core/theme/app_pallete.dart';
 import 'package:affinity/core/utils/calculate_post_time.dart';
 import 'package:affinity/core/utils/format_date.dart';
+import 'package:affinity/features/event/data/models/event_model.dart';
 import 'package:affinity/features/event/domain/entities/event.dart';
+import 'package:affinity/features/event/presentation/pages/edit_event_page.dart';
 import 'package:affinity/features/event/presentation/widgets/event_interact_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +30,15 @@ class BlogViewerPage extends StatelessWidget {
         actions: [
           if (event.posterId == userId)
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        EditEventPage(event: event as EventModel),
+                  ),
+                );
+              },
               child: const Text(
                 "Edit",
                 style: TextStyle(

@@ -14,6 +14,7 @@ import 'package:affinity/features/event/domain/repositories/event_repository.dar
 import 'package:affinity/features/event/domain/usecases/get_all_events.dart';
 import 'package:affinity/features/event/domain/usecases/join_event.dart';
 import 'package:affinity/features/event/domain/usecases/leave_event.dart';
+import 'package:affinity/features/event/domain/usecases/update_event.dart';
 import 'package:affinity/features/event/domain/usecases/upload_event.dart';
 import 'package:affinity/features/event/presentation/bloc/event_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';

@@ -104,6 +104,11 @@ void _initBlog() {
       ),
     )
     ..registerFactory(
+      () => UpdateEvent(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory(
       () => GetAllEvents(
         serviceLocator(),
       ),
@@ -122,6 +127,7 @@ void _initBlog() {
     ..registerLazySingleton(
       () => EventBloc(
         uploadEvent: serviceLocator(),
+        updateEvent: serviceLocator(),
         getAllEvents: serviceLocator(),
         joinEvent: serviceLocator(),
         leaveEvent: serviceLocator(),

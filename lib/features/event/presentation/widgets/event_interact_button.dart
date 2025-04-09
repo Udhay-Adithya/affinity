@@ -15,9 +15,7 @@ class EventInteractButton extends StatelessWidget {
         (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id;
     return BlocConsumer<EventBloc, EventState>(
       listener: (context, state) {
-        if (state is EventFailure) {
-          // showSnackBar(context, state.error);
-        }
+        if (state is EventFailure) {}
       },
       builder: (context, state) {
         if (event.members.contains(userId)) {

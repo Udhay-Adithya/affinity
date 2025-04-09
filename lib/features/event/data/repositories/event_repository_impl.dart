@@ -117,4 +117,19 @@ class EventRepositoryImpl implements EventRepository {
       return left(Failure(e.message));
     }
   }
+
+  @override
+  Future<Either<Failure, Event>> updateEvent({required Event event}) async {
+    try {
+      if (await (connectionChecker.isConnected)) {
+        final eventData =
+            await eventRemoteDataSource.updateEvent(event as EventModel);
+        return right(eventData);
+      } else {
+        throw ServerException("No internet connection");
+      }
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
+  }
 }

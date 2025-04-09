@@ -35,7 +35,14 @@ class _EventPageState extends State<EventPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Affinity'),
+        centerTitle: true,
+        title: const Text(
+          'Affinity',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: () {
