@@ -9,6 +9,8 @@ import 'package:affinity/features/event/presentation/widgets/event_interact_butt
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'event_page.dart';
+
 class EventViewerPage extends StatelessWidget {
   static route(Event event) => MaterialPageRoute(
         builder: (context) => EventViewerPage(
@@ -23,12 +25,21 @@ class EventViewerPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userId =
-        (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id;
+    final user = (context.read<AppUserCubit>().state as AppUserLoggedIn).user;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              EventPage.route(),
+              (route) => false,
+            );
+          },
+          icon: Icon(Icons.arrow_back),
+        ),
         actions: [
-          if (event.posterId == userId)
+          if (event.posterId == user.id || user.isAdmin)
             TextButton(
               onPressed: () {
                 Navigator.push(
@@ -76,7 +87,7 @@ class EventViewerPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  '${formatDateBydMMMYYYY(event.updatedAt)} . ${getTimeAgo(event.updatedAt.toString())} min',
+                  '${formatDateBydMMMYYYY(event.updatedAt)} . ${getTimeAgo(event.updatedAt.toString())}',
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     color: AppPallete.greyColor,

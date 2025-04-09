@@ -10,7 +10,6 @@ import 'package:affinity/core/utils/show_snackbar.dart';
 import 'package:affinity/features/event/data/models/event_model.dart';
 import 'package:affinity/features/event/domain/entities/event.dart';
 import 'package:affinity/features/event/presentation/bloc/event_bloc.dart';
-import 'package:affinity/features/event/presentation/pages/event_page.dart';
 import 'package:affinity/features/event/presentation/pages/event_viewer_page.dart';
 import 'package:affinity/features/event/presentation/widgets/event_editor.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -89,7 +88,9 @@ class _EditEventPageState extends State<EditEventPage> {
               updateEvent();
               Navigator.pushAndRemoveUntil(
                 context,
-                EventPage.route(),
+                MaterialPageRoute(
+                  builder: (_) => EventViewerPage(event: updatedEvent),
+                ),
                 (route) => false,
               );
             },
