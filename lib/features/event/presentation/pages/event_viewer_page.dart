@@ -56,11 +56,10 @@ class EventViewerPage extends StatelessWidget {
                   fontSize: 16,
                 ),
               ),
-            )
-          else
-            EventInteractButton(
-              event: event,
-            )
+            ),
+          EventInteractButton(
+            event: event,
+          )
         ],
       ),
       body: Scrollbar(
